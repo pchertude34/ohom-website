@@ -1,0 +1,30 @@
+// Custom.scss
+// Option A: Include all of Bootstrap
+
+// $theme-colors: (
+//   'primary': #2e8887,
+//   // 'secondary': '#6CAEA3',
+//     'danger': #ff4136
+// );
+
+$primary: #2e8887;
+$secondary: #6caea3;
+
+$break-small: 768px;
+$break-large: 1200px;
+
+.color-primary {
+  color: $primary;
+}
+
+.color-secondary {
+  color: $secondary;
+}
+
+.footer {
+  background-color: $primary;
+  color: #fff;
+}
+
+// Import bootstrap and it's variables
+@import "~bootstrap/scss/bootstrap.scss";

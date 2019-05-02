@@ -1,0 +1,66 @@
+@import '../../custom.scss';
+
+.upcoming-event-card-body {
+  background-color: $secondary;
+  border-radius: 4px;
+  position: relative;
+  min-height: 120px;
+  overflow: hidden;
+}
+
+.upcoming-event-card-date {
+  background-color: $secondary;
+  color: white;
+  text-align: center;
+  height: 100%;
+
+  h1 {
+    @include media-breakpoint-down(md) {
+      font-size: 18pt;
+    }
+    font-size: 26pt;
+  }
+
+  h2 {
+    @include media-breakpoint-down(md) {
+      font-size: 12pt;
+    }
+    font-size: 18pt;
+  }
+}
+
+.upcoming-event-card-description {
+  padding-left: 10px;
+  background-color: #efefef;
+  height: 100%;
+  h1 {
+    font-size: 18pt;
+    margin-bottom: 2px;
+  }
+
+  h2 {
+    font-size: 14pt;
+    margin-bottom: 2px;
+  }
+
+  p {
+    font-size: 11pt;
+    margin-bottom: 0;
+    overflow: hidden;
+  }
+}
+
+.upcoming-event-card-image {
+  @media screen and (max-width: $break-small) {
+    display: none;
+  }
+  text-align: center;
+  background-color: grey;
+  position: relative;
+  overflow: hidden;
+}
+
+.upcoming-event-card-image img {
+  margin: -15% -75%;
+  position: absolute;
+}
