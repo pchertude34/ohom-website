@@ -1,33 +1,34 @@
 import React from "react"
 import { Button } from "reactstrap"
 import PhotoCarousel from "../../components/Carousel/PhotoCarousel"
+import YouTube from "react-youtube"
 
 import { UpcomingEventCard } from "../../components/Event"
 import ProgramCard from "../../components/ProgramCard/ProgramCard"
 import Separator from "../../components/Separator/Separator"
-// import '../../index.css';
 
-import { loadHomepageData, loadUpcomingEvents } from "./HomPageAPIUtil"
+import { loadUpcomingEvents } from "../../utils/HomPageAPIUtil"
+import "../../sass/HomePage.scss"
 
 const MAX_FEATURE_PROGRAM_SIZE = 3
+const YOUTUBE_ID = "N0TMVSvMiVE"
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props)
-    const { homepageData } = props.pageContext
+    const { homepageData } = props.pageContext || {}
 
     this.state = {
-      carouselImages: homepageData.carouselImages || [],
-      featuredPrograms: homepageData.featuredPrograms || [],
+      carouselImages: homepageData ? homepageData.carouselImages : [],
+      featuredPrograms: homepageData ? homepageData.featuredPrograms : [],
       upcomingEvents: [],
-      whoAreWe: homepageData.whoAreWe || "",
+      whoAreWe: homepageData ? homepageData.whoAreWe : "",
     }
-
-    console.log(this.state)
   }
 
   componentDidMount() {
     loadUpcomingEvents().then(response => {
+      console.log(response)
       if (response.length > 0) {
         this.setState({
           upcomingEvents: response,
@@ -46,7 +47,7 @@ class HomePage extends React.Component {
               data-test="featured-program-card"
               title={program.title}
               subtitle={program.location}
-              description={program.description}
+              caption={program.caption}
               imageUrl={program.url}
             />
           </div>
@@ -74,11 +75,11 @@ class HomePage extends React.Component {
         )}
         <Separator text={"Who are we?"} style={"mb-5"} />
 
+        <div className="mb-3 text-center">
+          <YouTube videoId={YOUTUBE_ID} className="youtube-player" />
+        </div>
         <div className="row mb-3">
-          <div className="col-md-6 text-center">
-            <p>Video player will go here</p>
-          </div>
-          <div className="col-md-6">
+          <div className="col-md-8 offset-md-2">
             <div className="px-2">
               {this.state.whoAreWe}
 

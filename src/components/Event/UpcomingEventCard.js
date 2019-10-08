@@ -6,7 +6,6 @@ import moment from "moment"
 import "./UpcomingEventCard.scss"
 
 function UpcomingEventCard(props) {
-  console.log(props)
   const eventDay = moment(props.event.eventTimes[0].startDate).format("DD")
   const eventMonth = moment(props.event.eventTimes[0].startDate)
     .format("MMM")

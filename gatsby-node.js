@@ -37,6 +37,7 @@ async function createHomePage(graphql, actions, reporter) {
         featuredPrograms {
           title
           location
+          caption
           description
           programImage {
             asset {
@@ -74,7 +75,7 @@ async function createHomePage(graphql, actions, reporter) {
   reporter.info(`Creating project home page`)
 
   createPage({
-    path: "/home",
+    path: "/",
     component: require.resolve("./src/pages/HomePage/HomePage"),
     context: { homepageData },
   })
@@ -84,38 +85,61 @@ async function createHomePage(graphql, actions, reporter) {
 
 async function createProgramPages(graphql, actions, reporter) {
   const { createPage } = actions
-  const results = await graphql(`
-    {
-      allSanityProgram {
-        edges {
-          node {
-            title
-            location
-            description
-            programImage {
-              asset {
-                url
-              }
-            }
-          }
-        }
-      }
+  // const results = await graphql(`
+  //   {
+  //     allSanityProgram {
+  //       edges {
+  //         node {
+  //           _id
+  //           title
+  //           location
+  //           description
+  //           block {
+  //             _key
+  //             style
+  //             children {
+  //               _key
+  //               _type
+  //               text
+  //               marks
+  //             }
+  //           }
+  //           programImage {
+  //             asset {
+  //               url
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // `)
+
+  const results = await sanityClient.fetch(`
+    *[_type == 'program']{
+      ...,
+      "photoUrl": image.asset->url
     }
   `)
 
   if (results.error) throw results.error
 
-  const programsData = results.data.allSanityProgram.edges.map(program => {
-    let photoUrl = null
-    if (program.node.programImage) {
-      photoUrl = program.node.programImage.asset.url
-    }
-    // Replace spaces with dashes and make lowercase
-    const slug = program.node.title.replace(/\s+/g, "-").toLowerCase()
+  // Flatten the photo url and create a slug for the page.
+  // const programsData = results.data.allSanityProgram.edges.map(program => {
+  //   let photoUrl = null
+  //   if (program.node.programImage) {
+  //     photoUrl = program.node.programImage.asset.url
+  //   }
+  //   // Replace spaces with dashes and make lowercase
+  //   const slug = program.node.title.replace(/\s+/g, "-").toLowerCase()
 
-    return { ...program.node, slug, photoUrl }
-  })
-  const locationCategorizedPrograms = groupBy(programsData, "location")
+  //   return { ...program.node, slug, photoUrl }
+  // })
+  let locationCategorizedPrograms = {}
+
+  if (results) {
+    locationCategorizedPrograms = groupBy(results, "location")
+  }
 
   reporter.info("Createing program page")
 
@@ -128,13 +152,66 @@ async function createProgramPages(graphql, actions, reporter) {
   return Promise.resolve()
 }
 
-async function createEventPages(graphql, actions, reporter) {}
+async function createAboutUsPage(graphql, actions, reporter) {
+  const { createPage } = actions
+  // const teamMemberResults = await graphql(`
+  //   {
+  //     allSanityTeamMember {
+  //       edges {
+  //         node {
+  //           name
+  //           position
+  //           title
+  //           background
+  //           image {
+  //             asset {
+  //               url
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // `)
+
+  const teamMemberResults = await sanityClient.fetch(`
+  *[_type == 'teamMember'] {
+    ...,
+    "photoUrl": image.asset->url
+  }`)
+
+  if (teamMemberResults.error) throw teamMemberResults.error
+
+  // Flatten out the photo url
+  // const teamMemberData = teamMemberResults.data.allSanityTeamMember.edges.map(
+  //   teamMember => {
+  //     let photoUrl = null
+
+  //     if (teamMember.node.image) {
+  //       photoUrl = teamMember.node.image.asset.url
+  //     }
+
+  //     return { ...teamMember.node, photoUrl }
+  //   }
+  // )
+
+  reporter.info("Creating about us page")
+
+  createPage({
+    path: "/about-us",
+    component: require.resolve("./src/pages/AboutUs/AboutUs"),
+    context: { teamMemberData: teamMemberResults },
+  })
+}
+
+// async function createEventPages(graphql, actions, reporter) {}
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const pagePromises = []
 
   pagePromises.push(createHomePage(graphql, actions, reporter))
   pagePromises.push(createProgramPages(graphql, actions, reporter))
+  pagePromises.push(createAboutUsPage(graphql, actions, reporter))
 
   return Promise.all(pagePromises)
 }

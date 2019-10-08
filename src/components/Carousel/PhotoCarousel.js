@@ -64,7 +64,7 @@ class PhotoCarousel extends React.Component {
             style={{ height: 500, width: "100%", overflow: "hidden" }}
           />
           <CarouselCaption
-            captionText={item.title}
+            captionText={item.title || ""}
             captionHeader={item.description}
           />
         </CarouselItem>
@@ -108,7 +108,7 @@ PhotoCarousel.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
       url: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
+      title: PropTypes.string,
       description: PropTypes.string,
       _key: PropTypes.string.isRequired,
     })

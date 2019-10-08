@@ -1,4 +1,4 @@
-import sanityClient from "../../sanitClient"
+import sanityClient from "../sanitClient"
 
 /**
  * Load the data from sanity to display on the home page.
@@ -14,10 +14,20 @@ export function loadHomepageData() {
 }
 
 export function loadUpcomingEvents() {
+  const d = new Date(Date.now())
+  let month = "" + (d.getMonth() + 1)
+  let day = "" + d.getDate()
+  let year = d.getFullYear()
+
+  if (month.length < 2) month = "0" + month
+  if (day.length < 2) day = "0" + day
+
+  const formattedDate = [year, month, day].join("-")
+
   let query = `*[_type == 'event']{
     ...,
     "imageUrl": image.asset->url,
-    "eventTimes": eventTimes[startDate > '2019-01-01'] | order(startDate) { startDate }
+    "eventTimes": eventTimes[startDate > '${formattedDate}'] | order(startDate) { startDate }
   }[count(eventTimes) > 0]`
 
   return sanityClient.fetch(query)

@@ -5,7 +5,8 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
-    "@sanity/client": "^0.140.8",
+    "@sanity/block-content-to-react": "^2.0.6",
+    "@sanity/client": "^0.140.36",
     "bootstrap": "^4.3.1",
     "gatsby": "^2.1.31",
     "gatsby-image": "^2.0.33",
@@ -24,6 +25,7 @@
     "react-dom": "^16.8.4",
     "react-helmet": "^5.2.0",
     "react-lines-ellipsis": "^0.14.0",
+    "react-youtube": "^7.9.0",
     "reactstrap": "^7.1.0"
   },
   "devDependencies": {

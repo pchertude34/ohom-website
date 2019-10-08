@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53 (72520) - https://sketchapp.com -->
+    <title>_ionicons_svg_md-information-circle-outline</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Board" transform="translate(-419.000000, -1572.000000)" fill="#000000" fill-rule="nonzero">
+            <g id="AdvisoryBoard" transform="translate(234.000000, 1080.000000)">
+                <g id="Alokananda" transform="translate(0.000000, 306.000000)">
+                    <g id="_ionicons_svg_md-information-circle-outline" transform="translate(197.500000, 198.500000) scale(1, -1) translate(-197.500000, -198.500000) translate(185.000000, 186.000000)">
+                        <path d="M12.5,2.52403846 C15.1622596,2.52403846 17.6682692,3.56370192 19.5552885,5.44471154 C21.4362981,7.33173077 22.4759615,9.83774038 22.4759615,12.5 C22.4759615,15.1622596 21.4362981,17.6682692 19.5552885,19.5552885 C17.6682692,21.4362981 15.1622596,22.4759615 12.5,22.4759615 C9.83774038,22.4759615 7.33173077,21.4362981 5.44471154,19.5552885 C3.56370192,17.6682692 2.52403846,15.1622596 2.52403846,12.5 C2.52403846,9.83774038 3.56370192,7.33173077 5.44471154,5.44471154 C7.33173077,3.56370192 9.83774038,2.52403846 12.5,2.52403846 L12.5,2.52403846 Z M12.5,0 C5.59495192,0 0,5.59495192 0,12.5 C0,19.4050481 5.59495192,25 12.5,25 C19.4050481,25 25,19.4050481 25,12.5 C25,5.59495192 19.4050481,0 12.5,0 Z" id="Shape"></path>
+                        <path d="M14,19 L11,19 L11,11.1875 L14,11.1875 L14,19 Z M14,8.625 L11,8.625 L11,6 L14,6 L14,8.625 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

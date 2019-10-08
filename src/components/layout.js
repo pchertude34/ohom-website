@@ -52,7 +52,7 @@ const Layout = ({ children }) => (
         }),
         "title"
       )
-      console.log(programLocations)
+
       const sponsors = data.allSanitySponsor.edges.map(edge => {
         const imageUrl = edge.node.image ? edge.node.image.asset.url : null
         return {

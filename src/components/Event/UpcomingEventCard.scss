@@ -1,10 +1,10 @@
-@import '../../custom.scss';
+@import "../../custom.scss";
 
 .upcoming-event-card-body {
   background-color: $secondary;
   border-radius: 4px;
   position: relative;
-  min-height: 120px;
+  height: 120px;
   overflow: hidden;
 }
 
@@ -61,6 +61,8 @@
 }
 
 .upcoming-event-card-image img {
-  margin: -15% -75%;
+  margin: 0% -50%;
+  height: 120px;
+  width: 100%;
   position: absolute;
 }
