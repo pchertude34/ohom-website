@@ -8,7 +8,8 @@ import ProgramCard from "../../components/ProgramCard/ProgramCard"
 import Separator from "../../components/Separator/Separator"
 
 import { loadUpcomingEvents } from "../../utils/HomPageAPIUtil"
-import "../../sass/HomePage.scss"
+import Testimonial from "../../components/Testimonial/Testimonial"
+// import "./HomePage.module.scss"
 
 const MAX_FEATURE_PROGRAM_SIZE = 3
 const YOUTUBE_ID = "N0TMVSvMiVE"
@@ -17,12 +18,14 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props)
     const { homepageData } = props.pageContext || {}
+    console.log("homepageData", homepageData)
 
     this.state = {
       carouselImages: homepageData ? homepageData.carouselImages : [],
       featuredPrograms: homepageData ? homepageData.featuredPrograms : [],
       upcomingEvents: [],
       whoAreWe: homepageData ? homepageData.whoAreWe : "",
+      featuredTestimonies: homepageData ? homepageData.featuredTestimonies : [],
     }
   }
 
@@ -42,7 +45,10 @@ class HomePage extends React.Component {
       .slice(0, MAX_FEATURE_PROGRAM_SIZE)
       .map((program, index) => {
         return (
-          <div className="col-md-4" key={`program-card-${index}`}>
+          <div
+            className="col-md-4 d-flex align-items-stretch"
+            key={`program-card-${index}`}
+          >
             <ProgramCard
               data-test="featured-program-card"
               title={program.title}
@@ -65,7 +71,28 @@ class HomePage extends React.Component {
       )
     })
 
+    const featuredTestimonies = this.state.featuredTestimonies.map(
+      testimony => {
+        return (
+          <Testimonial
+            quote={testimony.testimony}
+            author={testimony.authorName}
+          />
+        )
+      }
+    )
+
     return (
+      // <div>
+      //   <div className="header" />
+
+      //   {featuredProgramCards.length > 0 && (
+      //     <div data-test="featured-program-section">
+      //       <Separator text={"Featured Programs"} style={"my-5"} />
+      //       <div className="row text-center">{featuredProgramCards}</div>
+      //     </div>
+      //   )}
+      // </div>
       <div data-test="component-home" className="container">
         {this.state.carouselImages.length > 0 && (
           <PhotoCarousel
@@ -98,6 +125,13 @@ class HomePage extends React.Component {
           <div data-test="featured-program-section">
             <Separator text={"Featured Programs"} style={"my-5"} />
             <div className="row text-center">{featuredProgramCards}</div>
+          </div>
+        )}
+
+        {featuredTestimonies.length > 0 && (
+          <div>
+            <Separator text={"testimonials"} style={"my-5"} />
+            {featuredTestimonies}
           </div>
         )}
 

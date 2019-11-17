@@ -1,0 +1,63 @@
+.testimonial {
+  width: 75%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  padding-left: 4rem;
+  // font-size: $default-font-size;
+  box-shadow: 0 4px 1rem rgba($color-black, 0.1);
+  border-left: 1.5rem solid;
+  border-radius: 3px;
+  border-image-source: linear-gradient(
+    to bottom,
+    rgba($color-secondary, 1),
+    rgba($color-primary, 1)
+  );
+  border-image-slice: 1;
+  background-color: rgba($color-gray-light-2, 0.8);
+  background-image: url("../images/quotes-small.png");
+  background-size: 144px 100px;
+  background-repeat: no-repeat;
+  background-position: 5% 50%;
+  animation-name: moveInLeft;
+  animation-duration: 3s;
+  // font-size: $default-font-size;
+  transform: skewX(-12deg);
+
+  & > * {
+    transform: skewX(12deg);
+  }
+
+  @include respond(tab-port) {
+    width: 100%;
+    padding: 4rem;
+    padding-left: 7rem;
+  }
+
+  @include respond(phone) {
+    transform: skewX(0);
+  }
+
+  &__text {
+    transform: skewX(12deg);
+
+    @include respond(phone) {
+      transform: skewX(0);
+    }
+
+    &:before {
+      content: open-quote;
+    }
+
+    &:after {
+      content: close-quote;
+    }
+  }
+  &__author {
+    width: 100%;
+    text-align: right;
+
+    @include respond(phone) {
+      transform: skewX(0);
+    }
+  }
+}

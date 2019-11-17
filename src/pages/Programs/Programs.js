@@ -5,46 +5,84 @@ import ProgramContent from "../../components/ProgramContent/ProgramContent"
 import PageHeader from "../../components/PageHeader/PageHeader"
 
 import headerImage from "../../images/programs_header.jpg"
+import ProgramCard from "../../components/ProgramCard/ProgramCard"
 
-class Programs extends Component {
-  constructor(props) {
-    super(props)
-    console.log(props.pageContext)
-  }
+// class Programs extends Component {
+//   constructor(props) {
+//     super(props)
+//     console.log(props.pageContext)
+//   }
 
-  render() {
-    const { programs } = this.props.pageContext
-    const locations = programs ? Object.keys(programs) : []
-    const locationContent = locations.map(location => {
-      const category = location === "null" ? "No Location" : location
-      const content = programs[location].map(locationData => (
-        <ProgramContent
-          content={locationData}
-          key={`content-${locationData.slug}`}
-        />
-      ))
+// render() {
+//   const { programs } = this.props.pageContext
+//   const locations = programs ? Object.keys(programs) : []
+//   const locationContent = locations.map(location => {
+//     const category = location === "null" ? "No Location" : location
+//     const content = programs[location].map(locationData => (
+//       <ProgramContent
+//         content={locationData}
+//         key={`content-${locationData.slug}`}
+//       />
+//     ))
 
-      return (
-        <div key={`location-${programs[location].slug}`}>
-          <Separator text={category} style="mb-2" />
-          {content}
-        </div>
-      )
-    })
+//     return (
+//       <div key={`location-${programs[location].slug}`}>
+//         <Separator text={category} style="mb-2" />
+//         {content}
+//       </div>
+//     )
+//   })
+//   return (
+//     <React.Fragment>
+//       <PageHeader
+//         title={"Our Programs"}
+//         photoUrl={headerImage}
+//         text={`Open Hearts Open Minds continues to broaden its scope, providing
+//         services and life-skills training to prison inmates, as well as
+//       expanding awareness and understanding for those on the outside of
+//       prison systems both in Oregon and abroad.`}
+//       />
+//       {locationContent}
+//     </React.Fragment>
+//   )
+// }
+// }
+
+const Programs = props => {
+  console.log("props", props)
+  const programs = props.pageContext.programs || []
+
+  const programCards = programs.map(program => {
     return (
-      <React.Fragment>
-        <PageHeader
-          title={"Our Programs"}
-          photoUrl={headerImage}
-          text={`Open Hearts Open Minds continues to broaden its scope, providing
-          services and life-skills training to prison inmates, as well as
-        expanding awareness and understanding for those on the outside of
-        prison systems both in Oregon and abroad.`}
+      <div
+        className="col-md-4 d-flex align-items-stretch mb-4"
+        key={`program-${program._id}`}
+      >
+        <ProgramCard
+          imageUrl={program.photoUrl}
+          title={program.title}
+          subtitle={program.location}
+          caption={program.caption}
+          link={`/programs/${(program.slug || {}).current}`}
         />
-        {locationContent}
-      </React.Fragment>
+      </div>
     )
-  }
+  })
+
+  return (
+    <div>
+      <PageHeader
+        title={"Our Programs"}
+        photoUrl={headerImage}
+        text={`Open Hearts Open Minds continues to broaden its scope, providing
+            services and life-skills training to prison inmates, as well as
+          expanding awareness and understanding for those on the outside of
+          prison systems both in Oregon and abroad.`}
+      />
+      <Separator text="Programs" style="mb-4" />
+      <div className="row text-center">{programCards}</div>
+    </div>
+  )
 }
 
 export default Programs

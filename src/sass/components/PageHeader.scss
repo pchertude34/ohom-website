@@ -1,0 +1,42 @@
+.header-image {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  vertical-align: center;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    margin: -18% -0%;
+    position: absolute;
+
+    @include media-breakpoint-down(md) {
+      // display: none;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    height: 100%;
+  }
+}
+
+.header-box {
+  position: absolute;
+  vertical-align: bottom;
+  max-width: 45%;
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 16px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10% 5% 0% 2%;
+
+  @include media-breakpoint-down(md) {
+    width: 100%;
+    max-width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 0;
+    margin: 0;
+    position: relative;
+  }
+}

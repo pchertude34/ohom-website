@@ -46,6 +46,10 @@ async function createHomePage(graphql, actions, reporter) {
           }
         }
         whoAreWe
+        featuredTestimonies {
+          testimony
+          authorName
+        }
       }
     }
   `)
@@ -83,70 +87,32 @@ async function createHomePage(graphql, actions, reporter) {
   return Promise.resolve()
 }
 
-async function createProgramPages(graphql, actions, reporter) {
+async function createProgramPage(graphql, actions, reporter) {
   const { createPage } = actions
-  // const results = await graphql(`
-  //   {
-  //     allSanityProgram {
-  //       edges {
-  //         node {
-  //           _id
-  //           title
-  //           location
-  //           description
-  //           block {
-  //             _key
-  //             style
-  //             children {
-  //               _key
-  //               _type
-  //               text
-  //               marks
-  //             }
-  //           }
-  //           programImage {
-  //             asset {
-  //               url
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // `)
-
   const results = await sanityClient.fetch(`
     *[_type == 'program']{
       ...,
-      "photoUrl": image.asset->url
+      "photoUrl": programImage.asset->url
     }
   `)
 
   if (results.error) throw results.error
-
-  // Flatten the photo url and create a slug for the page.
-  // const programsData = results.data.allSanityProgram.edges.map(program => {
-  //   let photoUrl = null
-  //   if (program.node.programImage) {
-  //     photoUrl = program.node.programImage.asset.url
-  //   }
-  //   // Replace spaces with dashes and make lowercase
-  //   const slug = program.node.title.replace(/\s+/g, "-").toLowerCase()
-
-  //   return { ...program.node, slug, photoUrl }
-  // })
-  let locationCategorizedPrograms = {}
-
-  if (results) {
-    locationCategorizedPrograms = groupBy(results, "location")
-  }
+  if (results) locationCategorizedPrograms = groupBy(results, "location")
 
   reporter.info("Createing program page")
+
+  results.map(program => {
+    createPage({
+      path: `programs/${program.slug.current}`,
+      component: require.resolve("./src/pages/program"),
+      context: { program },
+    })
+  })
 
   createPage({
     path: "/programs",
     component: require.resolve("./src/pages/Programs/Programs"),
-    context: { programs: locationCategorizedPrograms },
+    context: { programs: results },
   })
 
   return Promise.resolve()
@@ -154,26 +120,6 @@ async function createProgramPages(graphql, actions, reporter) {
 
 async function createAboutUsPage(graphql, actions, reporter) {
   const { createPage } = actions
-  // const teamMemberResults = await graphql(`
-  //   {
-  //     allSanityTeamMember {
-  //       edges {
-  //         node {
-  //           name
-  //           position
-  //           title
-  //           background
-  //           image {
-  //             asset {
-  //               url
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // `)
-
   const teamMemberResults = await sanityClient.fetch(`
   *[_type == 'teamMember'] {
     ...,
@@ -181,20 +127,6 @@ async function createAboutUsPage(graphql, actions, reporter) {
   }`)
 
   if (teamMemberResults.error) throw teamMemberResults.error
-
-  // Flatten out the photo url
-  // const teamMemberData = teamMemberResults.data.allSanityTeamMember.edges.map(
-  //   teamMember => {
-  //     let photoUrl = null
-
-  //     if (teamMember.node.image) {
-  //       photoUrl = teamMember.node.image.asset.url
-  //     }
-
-  //     return { ...teamMember.node, photoUrl }
-  //   }
-  // )
-
   reporter.info("Creating about us page")
 
   createPage({
@@ -203,14 +135,13 @@ async function createAboutUsPage(graphql, actions, reporter) {
     context: { teamMemberData: teamMemberResults },
   })
 }
-
 // async function createEventPages(graphql, actions, reporter) {}
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const pagePromises = []
 
   pagePromises.push(createHomePage(graphql, actions, reporter))
-  pagePromises.push(createProgramPages(graphql, actions, reporter))
+  pagePromises.push(createProgramPage(graphql, actions, reporter))
   pagePromises.push(createAboutUsPage(graphql, actions, reporter))
 
   return Promise.all(pagePromises)

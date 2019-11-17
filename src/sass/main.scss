@@ -1,0 +1,44 @@
+// Custom.scss
+// Option A: Include all of Bootstrap
+
+// $theme-colors: (
+//   'primary': #2e8887,
+//   // 'secondary': '#6CAEA3',
+//     'danger': #ff4136
+// );
+
+@import "./_variables.scss";
+
+// Abstracts
+@import "./abstracts/mixins";
+
+// Base
+@import "./base/animations";
+@import "./base/base";
+
+// Component imports
+@import "./components/Footer.scss";
+@import "./components/header";
+@import "./components/testimonial";
+@import "./components/PageHeader.scss";
+@import "./components/ProgramContent.scss";
+@import "./components/VolunteerCard.scss";
+
+// Page imports
+@import "./pages/HomePage.scss";
+
+.color-primary {
+  color: $primary;
+}
+
+.color-secondary {
+  color: $secondary;
+}
+
+.footer {
+  background-color: $primary;
+  color: #fff;
+}
+
+// Import bootstrap and it's variables
+@import "~bootstrap/scss/bootstrap.scss";

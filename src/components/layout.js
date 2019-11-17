@@ -8,7 +8,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
-import { uniqBy } from "lodash"
 
 import Navbar from "./NavBar/NavBar"
 import Footer from "./Footer/Footer"
@@ -35,24 +34,17 @@ const Layout = ({ children }) => (
           edges {
             node {
               location
+              title
+              slug {
+                current
+              }
             }
           }
         }
       }
     `}
     render={data => {
-      const programLocations = uniqBy(
-        data.allSanityProgram.edges.map(edge => {
-          const title = edge.node.location
-            ? edge.node.location
-            : "Other Programs"
-          const slug = title.replace(/\s+/g, "-").toLowerCase()
-
-          return { title, slug }
-        }),
-        "title"
-      )
-
+      const programs = data.allSanityProgram.edges.map(edge => edge.node)
       const sponsors = data.allSanitySponsor.edges.map(edge => {
         const imageUrl = edge.node.image ? edge.node.image.asset.url : null
         return {
@@ -64,7 +56,7 @@ const Layout = ({ children }) => (
 
       return (
         <React.Fragment>
-          <Navbar programLocations={programLocations} />
+          <Navbar programs={programs} />
           <div className="container">{children}</div>
           <Footer sponsorList={sponsors} className="footer mt-5 pb-3" />
         </React.Fragment>

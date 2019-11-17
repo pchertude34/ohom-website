@@ -7,6 +7,7 @@ import { UpcomingEventCard } from "../Event/index"
 import "./ProgramContent.scss"
 
 import { loadUpcomingEventsByProgram } from "../../apiUtils/eventsAPIUtils"
+import Separator from "../Separator/Separator"
 
 const programContent = props => {
   console.log(props.content)
@@ -35,7 +36,6 @@ const programContent = props => {
       <div className="mb-5 row">
         <div className="col-md-8">
           <h4 className="mb-3 text-center">{props.content.title}</h4>
-          <p className="program-content">{props.content.description}</p>
           {props.content.block && <BlockContent blocks={props.content.block} />}
         </div>
         <div className="col-md-4">
@@ -45,7 +45,10 @@ const programContent = props => {
         </div>
       </div>
       {programEventCards.length > 0 ? (
-        <div className="mb-5 col-md-9">{programEventCards}</div>
+        <React.Fragment>
+          <Separator text="Upcoming Events" style="mb-4" />
+          <div className="mb-5 col-md-9">{programEventCards}</div>
+        </React.Fragment>
       ) : null}
     </React.Fragment>
   )

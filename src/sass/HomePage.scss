@@ -1,8 +1,0 @@
-@import "../custom.scss";
-
-.youtube-player {
-  @include media-breakpoint-down(md) {
-    width: 100%;
-    height: auto;
-  }
-}
