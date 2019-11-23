@@ -8,6 +8,7 @@
 
 const sanityClient = require("./src/sanitClient")
 const { groupBy } = require("lodash/collection")
+const { sortBy } = require("lodash/collection")
 
 // exports.createPages = () => {
 // let query = `*[_id == '123']{
@@ -39,6 +40,9 @@ async function createHomePage(graphql, actions, reporter) {
           location
           caption
           description
+          slug {
+            current
+          }
           programImage {
             asset {
               url
@@ -90,10 +94,15 @@ async function createHomePage(graphql, actions, reporter) {
 async function createProgramPage(graphql, actions, reporter) {
   const { createPage } = actions
   const results = await sanityClient.fetch(`
-    *[_type == 'program']{
+  *[_type == 'program']{
+    "_id": _id,
+     ...,
+    "photoUrl": programImage.asset->url,
+    "events": *[_type=='event' && references(^._id)]{
       ...,
-      "photoUrl": programImage.asset->url
+      "imageUrl": image.asset->url
     }
+  }
   `)
 
   if (results.error) throw results.error
@@ -104,7 +113,7 @@ async function createProgramPage(graphql, actions, reporter) {
   results.map(program => {
     createPage({
       path: `programs/${program.slug.current}`,
-      component: require.resolve("./src/pages/program"),
+      component: require.resolve("./src/pages/Programs/Program"),
       context: { program },
     })
   })
@@ -135,7 +144,49 @@ async function createAboutUsPage(graphql, actions, reporter) {
     context: { teamMemberData: teamMemberResults },
   })
 }
-// async function createEventPages(graphql, actions, reporter) {}
+
+async function createEventsPage(graphql, actions, reporter) {
+  const { createPage } = actions
+  const events = []
+  const results = await sanityClient.fetch(`*[_type == 'event']{
+    ...,
+      programs[]->{caption, location, title, slug, 'imageUrl': programImage.asset->url},
+    'imageUrl': image.asset->url
+  }`)
+
+  if (results.error) throw results.error
+
+  results.forEach(event => {
+    event.eventTimes.forEach(eventTime => {
+      events.push({
+        id: event._id + event.key,
+        title: event.title,
+        subtitle: event.subtitle,
+        caption: event.caption,
+        time: eventTime.startDate,
+        imageUrl: event.imageUrl,
+        slug: event.slug,
+      })
+    })
+
+    createPage({
+      path: `/events/${event.slug.current}`,
+      component: require.resolve("./src/components/Event/Event"),
+      context: { event },
+    })
+  })
+
+  const dateSortedEvents = sortBy(events, "time")
+
+  createPage({
+    path: `/events`,
+    component: require.resolve("./src/pages/Events/Events"),
+    context: { events: dateSortedEvents },
+  })
+
+  // console.log("events", events)
+  // console.log("dateSortedEvents", dateSortedEvents)
+}
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const pagePromises = []
@@ -143,6 +194,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   pagePromises.push(createHomePage(graphql, actions, reporter))
   pagePromises.push(createProgramPage(graphql, actions, reporter))
   pagePromises.push(createAboutUsPage(graphql, actions, reporter))
+  pagePromises.push(createEventsPage(graphql, actions, reporter))
 
   return Promise.all(pagePromises)
 }

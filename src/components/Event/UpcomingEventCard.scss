@@ -6,6 +6,10 @@
   position: relative;
   height: 120px;
   overflow: hidden;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .upcoming-event-card-date {
@@ -30,7 +34,7 @@
 }
 
 .upcoming-event-card-description {
-  padding-left: 10px;
+  padding: 0.4rem 1rem;
   background-color: #efefef;
   height: 100%;
   h1 {

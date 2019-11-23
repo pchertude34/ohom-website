@@ -3,13 +3,12 @@ import { Button } from "reactstrap"
 import PhotoCarousel from "../../components/Carousel/PhotoCarousel"
 import YouTube from "react-youtube"
 
-import { UpcomingEventCard } from "../../components/Event"
+import { UpcomingEventCard } from "../../components/Event/UpcomingEventCard"
 import ProgramCard from "../../components/ProgramCard/ProgramCard"
 import Separator from "../../components/Separator/Separator"
 
 import { loadUpcomingEvents } from "../../utils/HomPageAPIUtil"
 import Testimonial from "../../components/Testimonial/Testimonial"
-// import "./HomePage.module.scss"
 
 const MAX_FEATURE_PROGRAM_SIZE = 3
 const YOUTUBE_ID = "N0TMVSvMiVE"
@@ -18,7 +17,6 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props)
     const { homepageData } = props.pageContext || {}
-    console.log("homepageData", homepageData)
 
     this.state = {
       carouselImages: homepageData ? homepageData.carouselImages : [],
@@ -31,7 +29,6 @@ class HomePage extends React.Component {
 
   componentDidMount() {
     loadUpcomingEvents().then(response => {
-      console.log(response)
       if (response.length > 0) {
         this.setState({
           upcomingEvents: response,
@@ -55,6 +52,7 @@ class HomePage extends React.Component {
               subtitle={program.location}
               caption={program.caption}
               imageUrl={program.url}
+              link={`/programs/${(program.slug || {}).current}`}
             />
           </div>
         )

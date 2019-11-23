@@ -24,6 +24,8 @@ export function loadUpcomingEvents() {
 
   const formattedDate = [year, month, day].join("-")
 
+  console.log('formattedDate', formattedDate)
+
   let query = `*[_type == 'event']{
     ...,
     "imageUrl": image.asset->url,
