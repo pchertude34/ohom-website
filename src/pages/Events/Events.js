@@ -87,7 +87,7 @@ function EventsPage(props) {
       key={`${event._id}-${event.time}`}
       startDate={event.time}
       title={event.title}
-      subTitle={event.subtitle}
+      subtitle={event.subtitle}
       caption={event.caption}
       slug={event.slug.current}
       imageUrl={event.imageUrl}

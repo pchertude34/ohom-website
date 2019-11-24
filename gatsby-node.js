@@ -9,6 +9,7 @@
 const sanityClient = require("./src/sanitClient")
 const { groupBy } = require("lodash/collection")
 const { sortBy } = require("lodash/collection")
+const moment = require("moment")
 
 // exports.createPages = () => {
 // let query = `*[_id == '123']{
@@ -22,70 +23,84 @@ const { sortBy } = require("lodash/collection")
 // }
 async function createHomePage(graphql, actions, reporter) {
   const { createPage } = actions
-  const result = await graphql(`
-    {
-      sanityConfig {
-        carouselImages {
-          _key
-          title
-          description
-          image {
-            asset {
-              url
-            }
-          }
-        }
-        featuredPrograms {
-          title
-          location
-          caption
-          description
-          slug {
-            current
-          }
-          programImage {
-            asset {
-              url
-            }
-          }
-        }
-        whoAreWe
-        featuredTestimonies {
-          testimony
-          authorName
-        }
-      }
-    }
-  `)
+  // const result = await graphql(`
+  //   {
+  //     sanityConfig {
+  //       carouselImages {
+  //         _key
+  //         title
+  //         description
+  //         image {
+  //           asset {
+  //             url
+  //           }
+  //         }
+  //       }
+  //       featuredPrograms {
+  //         title
+  //         location
+  //         caption
+  //         description
+  //         slug {
+  //           current
+  //         }
+  //         programImage {
+  //           asset {
+  //             url
+  //           }
+  //         }
+  //       }
+  //       whoAreWe
+  //       featuredTestimonies {
+  //         testimony
+  //         authorName
+  //       }
+  //     }
+  //   }
+  // `)
+  const currentDate = moment(Date.now()).format("YYYY-MM-DD")
+  console.log("currentDate", currentDate)
+  const results = await sanityClient.fetch(`
+  *[_id == '123']{
+    carouselImages[]{_key, "url": image.asset->url, title, description },
+    featuredPrograms[]->{_id, "imageUrl": programImage.asset->url, title, location, caption, slug},
+    whoAreWe,
+    featuredTestimonies[]->{...},
+    "upcomingEvents": *[_type == 'event']{
+      ...,
+      "imageUrl": image.asset->url,
+      "eventTimes": (eventTimes[startDate > '${currentDate}'] | order(startDate) {startDate})
+    }[count(eventTimes) > 0]
+  }[0]`)
 
-  if (result.errors) throw result.errors
+  if (results.errors) throw results.errors
 
-  const homepageData = result.data.sanityConfig || {}
+  // const homepageData = results.data.sanityConfig || {}
   // Flatten out the URL of the image
-  homepageData.carouselImages = (homepageData.carouselImages || []).map(
-    carouselImage => {
-      return {
-        ...carouselImage,
-        url: carouselImage.image ? carouselImage.image.asset.url : "",
-      }
-    }
-  )
+  // homepageData.carouselImages = (homepageData.carouselImages || []).map(
+  //   carouselImage => {
+  //     return {
+  //       ...carouselImage,
+  //       url: carouselImage.image ? carouselImage.image.asset.url : "",
+  //     }
+  //   }
+  // )
 
-  homepageData.featuredPrograms = (homepageData.featuredPrograms || []).map(
-    program => {
-      return {
-        ...program,
-        url: program.programImage ? program.programImage.asset.url : "",
-      }
-    }
-  )
+  // homepageData.featuredPrograms = (homepageData.featuredPrograms || []).map(
+  //   program => {
+  //     return {
+  //       ...program,
+  //       url: program.programImage ? program.programImage.asset.url : "",
+  //     }
+  //   }
+  // )
 
   reporter.info(`Creating project home page`)
 
   createPage({
     path: "/",
     component: require.resolve("./src/pages/HomePage/HomePage"),
-    context: { homepageData },
+    context: { homePageData: results },
   })
 
   return Promise.resolve()
