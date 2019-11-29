@@ -10,11 +10,10 @@ import {
   Button,
 } from "reactstrap"
 import PropTypes from "prop-types"
-import LinesEllipsis from "react-lines-ellipsis"
 
 const ProgramCard = props => {
   return (
-    <Card className="">
+    <Card>
       <CardImg top width="100%" src={props.imageUrl} alt="Card image cap" />
       <CardBody style={{ paddingTop: "0px" }}>
         <CardTitle>
@@ -25,11 +24,11 @@ const ProgramCard = props => {
         )}
         <CardText className="text-left">{props.caption}</CardText>
         {props.link && (
-          <Button className="bg-white text-secondary px-5 flex-d align-items-bottom">
-            <Link to={props.link}>
+          <Link to={props.link}>
+            <Button className="bg-white text-secondary px-5 flex-d align-items-bottom">
               <i>Read More!</i>
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         )}
       </CardBody>
     </Card>

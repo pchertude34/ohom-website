@@ -198,9 +198,26 @@ async function createEventsPage(graphql, actions, reporter) {
     component: require.resolve("./src/pages/Events/Events"),
     context: { events: dateSortedEvents },
   })
+}
 
-  // console.log("events", events)
-  // console.log("dateSortedEvents", dateSortedEvents)
+async function createGetInvolvedPage(graphql, actions, reporter) {
+  const { createPage } = actions
+  const results = await sanityClient.fetch(`
+    *[_id == '123']{
+      donationInfo,
+      newsLetterInfo
+    }[0]
+  `)
+
+  if (results.error) throw results.error
+
+  reporter.info("Creating Get Involved page")
+
+  createPage({
+    path: "/get-involved",
+    component: require.resolve("./src/pages/GetInvolved/GetInvolved"),
+    context: { getInvolvedData: results },
+  })
 }
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
@@ -210,6 +227,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   pagePromises.push(createProgramPage(graphql, actions, reporter))
   pagePromises.push(createAboutUsPage(graphql, actions, reporter))
   pagePromises.push(createEventsPage(graphql, actions, reporter))
-
+  pagePromises.push(createGetInvolvedPage(graphql, actions, reporter))
   return Promise.all(pagePromises)
 }

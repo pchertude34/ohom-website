@@ -40,7 +40,7 @@ function Program(props) {
         {programEventCards.length > 0 ? (
           <React.Fragment>
             <Separator text="Upcoming Events" style="mb-4" />
-            <div className="mb-5 col-md-9">{programEventCards}</div>
+            <div className="mb-5">{programEventCards}</div>
           </React.Fragment>
         ) : null}
       </div>

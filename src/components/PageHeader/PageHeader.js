@@ -7,10 +7,12 @@ const pageHeader = props => {
   return (
     <div className="header-image">
       <img src={props.photoUrl} />
-      <div className="header-box">
-        <h3>{props.title}</h3>
-        <p>{props.text}</p>
-      </div>
+      {(props.title || props.text) && (
+        <div className="header-box">
+          <h3>{props.title}</h3>
+          <p>{props.text}</p>
+        </div>
+      )}
     </div>
   )
 }
