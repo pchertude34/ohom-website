@@ -50,7 +50,7 @@ class PhotoCarousel extends React.Component {
   render() {
     const { activeIndex } = this.state
 
-    const slides = this.props.items.map((item, index) => {
+    const slides = (this.props.items || []).map((item, index) => {
       return (
         <CarouselItem
           data-test="photo-slide"
@@ -79,7 +79,7 @@ class PhotoCarousel extends React.Component {
         previous={this.previous}
       >
         <CarouselIndicators
-          items={this.props.items}
+          items={this.props.items || []}
           activeIndex={activeIndex}
           onClickHandler={this.goToIndex}
         />

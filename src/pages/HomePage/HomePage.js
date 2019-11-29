@@ -13,9 +13,9 @@ const MAX_FEATURE_PROGRAM_SIZE = 3
 const YOUTUBE_ID = "N0TMVSvMiVE"
 
 function HomePage(props) {
-  const homePageData = (props.pageContext || {}).homePageData
+  const homePageData = (props.pageContext || {}).homePageData || {}
 
-  const featuredProgramCards = homePageData.featuredPrograms
+  const featuredProgramCards = (homePageData.featuredPrograms || [])
     .slice(0, MAX_FEATURE_PROGRAM_SIZE)
     .map(program => (
       <div
@@ -33,7 +33,7 @@ function HomePage(props) {
       </div>
     ))
 
-  const featuredTestimonies = homePageData.featuredTestimonies.map(
+  const featuredTestimonies = (homePageData.featuredTestimonies || []).map(
     testimony => (
       <Testimonial
         key={testimony._id}
@@ -42,25 +42,28 @@ function HomePage(props) {
       />
     )
   )
-  const upcomingEvents = homePageData.upcomingEvents.reduce((accum, event) => {
-    event.eventTimes.forEach(eventTime => {
-      if (moment(eventTime.startDate).isAfter(Date.now())) {
-        accum.push(
-          <UpcomingEventCard
-            key={`event-${event._id}-${eventTime.startDate}`}
-            startDate={eventTime.startDate}
-            title={event.title}
-            subtitle={event.subtitle}
-            caption={event.caption}
-            slug={event.slug.current}
-            imageUrl={event.imageUrl}
-          />
-        )
-      }
-    })
+  const upcomingEvents = (homePageData.upcomingEvents || []).reduce(
+    (accum, event) => {
+      event.eventTimes.forEach(eventTime => {
+        if (moment(eventTime.startDate).isAfter(Date.now())) {
+          accum.push(
+            <UpcomingEventCard
+              key={`event-${event._id}-${eventTime.startDate}`}
+              startDate={eventTime.startDate}
+              title={event.title}
+              subtitle={event.subtitle}
+              caption={event.caption}
+              slug={event.slug.current}
+              imageUrl={event.imageUrl}
+            />
+          )
+        }
+      })
 
-    return accum
-  }, [])
+      return accum
+    },
+    []
+  )
 
   return (
     <div className="container">

@@ -5,7 +5,7 @@ import headerImage from "../../images/get-involved-header.jpg"
 import BlockContent from "@sanity/block-content-to-react"
 
 function GetInvolved(props) {
-  const pageContext = props.pageContext.getInvolvedData
+  const pageContext = (props.pageContext || {}).getInvolvedData || {}
 
   const handleContactFormSubmit = event => {
     event.preventDefault()

@@ -5,8 +5,8 @@ import PageHeader from "../../components/PageHeader/PageHeader"
 import UpcomingEventCard from "../../components/Event/UpcomingEventCard"
 
 function Program(props) {
-  const program = props.pageContext.program
-  const programEventCards = program.events.map(event => {
+  const program = props.pageContext.program || {}
+  const programEventCards = (program.events || []).map(event => {
     return event.eventTimes.map(eventTime => (
       <UpcomingEventCard
         key={`event-${event._id}`}
