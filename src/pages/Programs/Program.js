@@ -24,7 +24,7 @@ function Program(props) {
   return (
     <div>
       <PageHeader photoUrl={program.photoUrl} />
-      <Separator text={program.title} style="mb-2" />
+      <Separator text={program.title} className="mb-2" />
       <div>
         <div className="mb-5 row">
           <div className="col-md-8">
@@ -39,7 +39,7 @@ function Program(props) {
         </div>
         {programEventCards.length > 0 ? (
           <React.Fragment>
-            <Separator text="Upcoming Events" style="mb-4" />
+            <Separator text="Upcoming Events" className="mb-4" />
             <div className="mb-5">{programEventCards}</div>
           </React.Fragment>
         ) : null}

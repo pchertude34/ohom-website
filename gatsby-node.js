@@ -1,65 +1,11 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
-
-// You can delete this file if you're not using it
-
 const sanityClient = require("./src/sanitClient")
 const { groupBy } = require("lodash/collection")
 const { sortBy } = require("lodash/collection")
 const moment = require("moment")
 
-// exports.createPages = () => {
-// let query = `*[_id == '123']{
-//     carouselImages[]{"id": ^._id , "src": image.asset->url, title, description },
-//     featuredPrograms[]->{_id, "image": programImage.asset->url, title, location, description},
-//     whoAreWe
-//   }[0]`
-// return sanityClient.fetch(query).then(response => {
-//   console.log(response)
-// })
-// }
 async function createHomePage(graphql, actions, reporter) {
   const { createPage } = actions
-  // const result = await graphql(`
-  //   {
-  //     sanityConfig {
-  //       carouselImages {
-  //         _key
-  //         title
-  //         description
-  //         image {
-  //           asset {
-  //             url
-  //           }
-  //         }
-  //       }
-  //       featuredPrograms {
-  //         title
-  //         location
-  //         caption
-  //         description
-  //         slug {
-  //           current
-  //         }
-  //         programImage {
-  //           asset {
-  //             url
-  //           }
-  //         }
-  //       }
-  //       whoAreWe
-  //       featuredTestimonies {
-  //         testimony
-  //         authorName
-  //       }
-  //     }
-  //   }
-  // `)
   const currentDate = moment(Date.now()).format("YYYY-MM-DD")
-  console.log("currentDate", currentDate)
   const results = await sanityClient.fetch(`
   *[_id == '123']{
     carouselImages[]{_key, "url": image.asset->url, title, description },
@@ -74,26 +20,6 @@ async function createHomePage(graphql, actions, reporter) {
   }[0]`)
 
   if (results.errors) throw results.errors
-
-  // const homepageData = results.data.sanityConfig || {}
-  // Flatten out the URL of the image
-  // homepageData.carouselImages = (homepageData.carouselImages || []).map(
-  //   carouselImage => {
-  //     return {
-  //       ...carouselImage,
-  //       url: carouselImage.image ? carouselImage.image.asset.url : "",
-  //     }
-  //   }
-  // )
-
-  // homepageData.featuredPrograms = (homepageData.featuredPrograms || []).map(
-  //   program => {
-  //     return {
-  //       ...program,
-  //       url: program.programImage ? program.programImage.asset.url : "",
-  //     }
-  //   }
-  // )
 
   reporter.info(`Creating project home page`)
 
@@ -171,7 +97,7 @@ async function createEventsPage(graphql, actions, reporter) {
   const events = []
   const results = await sanityClient.fetch(`*[_type == 'event']{
     ...,
-      programs[]->{caption, location, title, slug, 'imageUrl': programImage.asset->url},
+      programs[]->{_id, caption, location, title, slug, 'imageUrl': programImage.asset->url},
     'imageUrl': image.asset->url
   }`)
 

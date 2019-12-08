@@ -6,7 +6,6 @@ import BlockContent from "@sanity/block-content-to-react"
 import moment from "moment"
 
 const Event = props => {
-  console.log("props", props)
   const event = (props.pageContext || {}).event
   const eventTimes = event.eventTimes.map(eventTime => (
     <div
@@ -19,7 +18,7 @@ const Event = props => {
 
   const programs = event.programs.map(program => (
     <div
-      key={program._key}
+      key={program._id}
       className="event-time-card__box event-time-card__box--program"
     >
       <Link to={`/programs/${program.slug.current}`}>{program.title}</Link>
@@ -29,7 +28,7 @@ const Event = props => {
   return (
     <div>
       <PageHeader photoUrl={event.imageUrl} />
-      <Separator text={event.title} style="mb-4" />
+      <Separator text={event.title} className="mb-4" />
       <div className="row mb-4">
         <div className="col-md-9">
           <div>

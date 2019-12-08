@@ -20,6 +20,7 @@ const Layout = ({ children }) => (
         allSanitySponsor {
           edges {
             node {
+              _id
               name
               link
               image {
@@ -33,6 +34,7 @@ const Layout = ({ children }) => (
         allSanityProgram {
           edges {
             node {
+              _id
               location
               title
               slug {
@@ -65,13 +67,12 @@ const Layout = ({ children }) => (
       const sponsors = data.allSanitySponsor.edges.map(edge => {
         const imageUrl = edge.node.image ? edge.node.image.asset.url : null
         return {
+          _id: edge.node._id,
           name: edge.node.name,
           link: edge.node.link,
           imageUrl,
         }
       })
-
-      console.log("footerText", footerText)
 
       return (
         <React.Fragment>

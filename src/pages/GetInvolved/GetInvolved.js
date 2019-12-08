@@ -9,15 +9,12 @@ function GetInvolved(props) {
 
   const handleContactFormSubmit = event => {
     event.preventDefault()
-
-    console.log("Form submit")
   }
 
   const handleEmailSubscribe = event => {
     event.preventDefault()
-
-    console.log("Email subscribe")
   }
+
   return (
     <div>
       <PageHeader
@@ -25,7 +22,7 @@ function GetInvolved(props) {
         photoUrl={headerImage}
         text="If what we do here at Open Hearts Open Minds inspires you, please feel free to send to contact us and we would be happy to help you get involved. Another extremely helpful way to assist is to donate!"
       />
-      <Separator text="Get Involved" style="mb-4" />
+      <Separator text="Get Involved" className="mb-4" />
       <div className="row mb-4">
         <div className="col-md-5 col-xs-12 d-flex">
           <div className="info-box">
@@ -54,7 +51,7 @@ function GetInvolved(props) {
           </div>
         </div>
       </div>
-      <Separator text="Contact Us" style="mb-4" />
+      <Separator text="Contact Us" className="mb-4" />
       <div className="info-box mb-4">
         <form onSubmit={handleContactFormSubmit}>
           <div className="form-group">

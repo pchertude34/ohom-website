@@ -3,7 +3,6 @@ import BlockContent from "@sanity/block-content-to-react"
 import PageHeader from "../../components/PageHeader/PageHeader"
 import VolunteerCard from "../../components/VolunteerCard/VolunteerCard"
 import Separator from "../../components/Separator/Separator"
-import { Modal } from "reactstrap"
 import headerImage from "../../images/about_header.jpg"
 
 const BOARD_MEMBER_TYPE = "board-member"
@@ -21,9 +20,9 @@ class AboutUs extends React.Component {
 
     if (teamMemberData) {
       teamMemberData.forEach(teamMember => {
-        const { name, position, title, background, photoUrl } = teamMember
+        const { name, position, title, background, photoUrl, _id } = teamMember
         const volunteerCard = (
-          <div className="col-md-3 col-xs-12">
+          <div className="col-md-3 col-xs-12" key={_id}>
             <VolunteerCard
               name={name}
               position={position}
@@ -51,7 +50,7 @@ class AboutUs extends React.Component {
           understanding.`}
         />
         <div className="mb-4">
-          <Separator text="Our Story" style="mb-2" />
+          <Separator text="Our Story" className="mb-2" />
           <div className="offset-lg-1 col-lg-10">
             <BlockContent blocks={ourStory} />
           </div>

@@ -12,7 +12,7 @@ function Footer(props) {
     )
 
     return (
-      <div className="sponsor my-4 mx-4">
+      <div className="sponsor my-4 mx-4" key={sponsor._id}>
         <a href={sponsor.link || ""}>{sponsorImage}</a>
       </div>
     )

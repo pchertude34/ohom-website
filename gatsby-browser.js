@@ -8,24 +8,7 @@
 
 import React from "react"
 import Layout from "./src/components/layout"
-import { useStaticQuery, graphql } from "gatsby"
 import "./src/sass/main.scss"
-
-function something() {
-  const test = graphql`
-    query {
-      allSanityProgram {
-        edges {
-          node {
-            location
-          }
-        }
-      }
-    }
-  `
-
-  console.log(test)
-}
 
 export const wrapPageElement = ({ element, props }) => {
   return <Layout {...props}>{element}</Layout>

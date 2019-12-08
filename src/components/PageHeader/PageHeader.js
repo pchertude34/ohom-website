@@ -6,7 +6,7 @@ import "./PageHeader.scss"
 const pageHeader = props => {
   return (
     <div className="header-image">
-      <img src={props.photoUrl} />
+      <img src={props.photoUrl} alt={props.title || ""} />
       {(props.title || props.text) && (
         <div className="header-box">
           <h3>{props.title}</h3>
@@ -15,6 +15,12 @@ const pageHeader = props => {
       )}
     </div>
   )
+}
+
+pageHeader.propTypes = {
+  photoUrl: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  text: PropTypes.string,
 }
 
 export default pageHeader

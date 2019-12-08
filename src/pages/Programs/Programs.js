@@ -1,5 +1,4 @@
 import React from "react"
-import PropTypes from "prop-types"
 import Separator from "../../components/Separator/Separator"
 import PageHeader from "../../components/PageHeader/PageHeader"
 import ProgramCard from "../../components/ProgramCard/ProgramCard"
@@ -7,7 +6,6 @@ import ProgramCard from "../../components/ProgramCard/ProgramCard"
 import headerImage from "../../images/programs_header.jpg"
 
 const Programs = props => {
-  console.log("props", props)
   const programs = props.pageContext.programs || []
 
   const programCards = programs.map(program => {
@@ -37,7 +35,7 @@ const Programs = props => {
           expanding awareness and understanding for those on the outside of
           prison systems both in Oregon and abroad.`}
       />
-      <Separator text="Programs" style="mb-4" />
+      <Separator text="Programs" className="mb-4" />
       <div className="row text-center">{programCards}</div>
     </div>
   )

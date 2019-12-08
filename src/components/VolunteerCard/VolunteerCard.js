@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import infoCircle from "../../images/info-circle.svg"
 import { Modal, ModalBody } from "reactstrap"
 import "./VolunteerCard.scss"
 
@@ -24,7 +23,7 @@ const volunteerCard = props => {
             <div className="v-container-modal">
               <img
                 src={photoUrl}
-                alt={`${props.name} photo`}
+                alt={`${props.name}`}
                 className="container-img "
               />
             </div>
@@ -41,7 +40,7 @@ const volunteerCard = props => {
           <div className="v-container">
             <img
               src={photoUrl}
-              alt={`${props.name} photo`}
+              alt={`${props.name}`}
               className="container-img "
             />
           </div>

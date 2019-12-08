@@ -70,7 +70,7 @@ function HomePage(props) {
   return (
     <div className="container">
       <PhotoCarousel items={homePageData.carouselImages} />
-      <Separator text={"Who are we?"} style={"mb-5"} />
+      <Separator text={"Who are we?"} className={"mb-5"} />
       <div className="mb-3 text-center">
         <YouTube videoId={YOUTUBE_ID} className="youtube-player" />
       </div>
@@ -93,19 +93,19 @@ function HomePage(props) {
       </div>
       {featuredProgramCards.length > 0 && (
         <div>
-          <Separator text={"Featured Programs"} style="my-5" />
+          <Separator text={"Featured Programs"} className="my-5" />
           <div className="row text-center">{featuredProgramCards}</div>
         </div>
       )}
       {featuredTestimonies.length > 0 && (
         <div>
-          <Separator text={"Testimonials"} style="my-5" />
+          <Separator text={"Testimonials"} className="my-5" />
           {featuredTestimonies}
         </div>
       )}
       {upcomingEvents.length > 0 && (
         <div>
-          <Separator text="Upcoming Events" style="my-5" />
+          <Separator text="Upcoming Events" className="my-5" />
           {upcomingEvents}
         </div>
       )}

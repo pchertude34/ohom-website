@@ -63,13 +63,13 @@ function EventsPage(props) {
       />
       {upcomingEvents.length > 0 && (
         <div>
-          <Separator text="Upcoming Events" style="mb-4" />
+          <Separator text="Upcoming Events" className="mb-4" />
           {upcomingEventsCards}
         </div>
       )}
       {previousEvents.length > 0 && (
         <div>
-          <Separator text="Previous Events" style="mb-4" />
+          <Separator text="Previous Events" className="mb-4" />
           {previousEventsCards}
         </div>
       )}

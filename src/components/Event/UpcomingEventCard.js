@@ -44,10 +44,10 @@ function UpcomingEventCard(props) {
 UpcomingEventCard.propTypes = {
   startDate: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
   caption: PropTypes.string.isRequired,
   slug: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string,
 }
 
 export default UpcomingEventCard
