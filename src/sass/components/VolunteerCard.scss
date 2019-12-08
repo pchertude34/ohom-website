@@ -1,3 +1,7 @@
+.v-card {
+  cursor: pointer;
+}
+
 .volunteer-card-body {
   padding-left: 0px;
   padding-right: 0px;
@@ -22,10 +26,6 @@
   padding-top: 66.66%;
   position: relative;
   width: 100%;
-  // background-color: lightgray;
-  // display: block;
-  // height: 120px;
-  // padding: 17.18% 0 17.18% 0; /* 34.37% = 100 / (w / h) = 100 / (640 / 220) */
 }
 
 .container-img {

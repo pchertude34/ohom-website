@@ -4,7 +4,7 @@
   background-color: $secondary;
   border-radius: 4px;
   position: relative;
-  height: 120px;
+  min-height: 120px;
   overflow: hidden;
 
   &:hover {
@@ -16,7 +16,6 @@
   background-color: $secondary;
   color: white;
   text-align: center;
-  height: 100%;
 
   h1 {
     @include media-breakpoint-down(md) {
@@ -37,6 +36,7 @@
   padding: 0.4rem 1rem;
   background-color: #efefef;
   height: 100%;
+  overflow: hidden;
   h1 {
     font-size: 18pt;
     margin-bottom: 2px;
@@ -59,14 +59,19 @@
     display: none;
   }
   text-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-color: grey;
   position: relative;
   overflow: hidden;
 }
 
-.upcoming-event-card-image img {
-  margin: 0% -50%;
-  height: 120px;
-  width: 100%;
-  position: absolute;
-}
+// .upcoming-event-card-image img {
+//   // margin: -50% -50%;
+//   top: 50%;
+//   right: 50%;
+//   transform: translate(50%, -50%);
+//   height: "auto";
+//   width: 100%;
+//   position: absolute;
+// }

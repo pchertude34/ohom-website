@@ -1,4 +1,5 @@
 import React from "react"
+import BlockContent from "@sanity/block-content-to-react"
 import PageHeader from "../../components/PageHeader/PageHeader"
 import VolunteerCard from "../../components/VolunteerCard/VolunteerCard"
 import Separator from "../../components/Separator/Separator"
@@ -11,9 +12,8 @@ const VOLUNTEER_TYPE = "volunteer"
 
 class AboutUs extends React.Component {
   render() {
-    const { teamMemberData } = this.props.pageContext || []
-    console.log("team member data")
-    console.log(teamMemberData)
+    const teamMemberData = this.props.pageContext.teamMemberData || []
+    const ourStory = this.props.pageContext.ourStory || []
 
     const boardMembers = []
     const advisoryBoardMembers = []
@@ -50,6 +50,12 @@ class AboutUs extends React.Component {
           dialogue, silence, education and the arts, in order to promote peace, love and 
           understanding.`}
         />
+        <div className="mb-4">
+          <Separator text="Our Story" style="mb-2" />
+          <div className="offset-lg-1 col-lg-10">
+            <BlockContent blocks={ourStory} />
+          </div>
+        </div>
         {boardMembers.length > 0 ? (
           <BoardCategory text={"Our Board"}>{boardMembers}</BoardCategory>
         ) : null}

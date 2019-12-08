@@ -1,7 +1,7 @@
 .testimonial {
   width: 75%;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 1.2rem;
   padding-left: 4rem;
   // font-size: $default-font-size;
   box-shadow: 0 4px 1rem rgba($color-black, 0.1);
@@ -22,12 +22,8 @@
 
   @include respond(tab-port) {
     width: 100%;
-    padding: 4rem;
-    padding-left: 7rem;
-  }
-
-  @include respond(phone) {
-    transform: skewX(0);
+    padding: 1rem;
+    padding-left: 2rem;
   }
 
   &__text {

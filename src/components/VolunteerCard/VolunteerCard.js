@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import infoCircle from "../../images/info-circle.svg"
-import { Modal, ModalBody, ModalHeader } from "reactstrap"
+import { Modal, ModalBody } from "reactstrap"
 import "./VolunteerCard.scss"
 
 const volunteerCard = props => {
@@ -15,8 +15,6 @@ const volunteerCard = props => {
         toggle={() => toggleModal(!isModalOpen)}
         centered
       >
-        {/* <div>{props.name}</div> */}
-
         <div className="row align-items-center">
           <div className="col-md-6 pl-5">
             <h3>{props.name}</h3>
@@ -55,9 +53,6 @@ const volunteerCard = props => {
           <p className="" style={{ color: "gray" }}>
             {props.title}
           </p>
-          <div className="ml-auto">
-            <img src={infoCircle} />
-          </div>
         </div>
       </div>
     </React.Fragment>

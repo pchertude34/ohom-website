@@ -33,9 +33,10 @@ function UpcomingEventCard(props) {
           {props.caption}
         </div>
       </div>
-      <div className="col-md-3 upcoming-event-card-image">
-        <img src={props.imageUrl} alt={props.title} />
-      </div>
+      <div
+        className="col-md-3 upcoming-event-card-image"
+        style={{ backgroundImage: `url(${props.imageUrl})` }}
+      />
     </div>
   )
 }

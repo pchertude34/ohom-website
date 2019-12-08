@@ -6,6 +6,7 @@ import BlockContent from "@sanity/block-content-to-react"
 import moment from "moment"
 
 const Event = props => {
+  console.log("props", props)
   const event = (props.pageContext || {}).event
   const eventTimes = event.eventTimes.map(eventTime => (
     <div

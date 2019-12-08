@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState } from "react"
 import {
+  Collapse,
   Navbar,
   NavbarToggler,
   Nav,
@@ -14,6 +15,7 @@ import {
 import { Link } from "gatsby"
 
 const navBar = props => {
+  const [isOpen, setIsOpen] = useState(false)
   const programItems = (props.programs || []).map(program => {
     return (
       <DropdownItem key={`drop-down-item-${program.slug.current}`}>
@@ -24,6 +26,8 @@ const navBar = props => {
     )
   })
 
+  const handleNavbarToggle = () => setIsOpen(!isOpen)
+
   return (
     <Navbar color="primary" dark expand="md">
       <NavbarBrand tag="span">
@@ -31,36 +35,46 @@ const navBar = props => {
           Open Hearts Open Minds
         </Link>
       </NavbarBrand>
-      <Nav className="ml-auto" navbar>
-        <UncontrolledDropdown nav>
-          <DropdownToggle nav caret style={{ color: "white" }}>
-            Our Programs
-          </DropdownToggle>
-          <DropdownMenu right>
-            <DropdownItem>
-              <Link to="/programs/" style={{ color: "black" }}>
-                All Programs
+      <NavbarToggler onClick={handleNavbarToggle} />
+      <Collapse navbar isOpen={isOpen}>
+        <Nav className="ml-auto" navbar>
+          <UncontrolledDropdown nav>
+            <DropdownToggle nav caret style={{ color: "white" }}>
+              Our Programs
+            </DropdownToggle>
+            <DropdownMenu right>
+              <DropdownItem>
+                <Link to="/programs/" style={{ color: "black" }}>
+                  All Programs
+                </Link>
+              </DropdownItem>
+              <DropdownItem divider />
+              {programItems}
+            </DropdownMenu>
+          </UncontrolledDropdown>
+          <NavItem>
+            <NavLink tag="span">
+              <Link to="/events/" style={{ color: "white" }}>
+                Events
               </Link>
-            </DropdownItem>
-            <DropdownItem divider />
-            {programItems}
-          </DropdownMenu>
-        </UncontrolledDropdown>
-        <NavItem>
-          <NavLink tag="span">
-            <Link to="/events/" style={{ color: "white" }}>
-              Events
-            </Link>
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink tag="span">
-            <Link to="/about-us" style={{ color: "white" }}>
-              About Us
-            </Link>
-          </NavLink>
-        </NavItem>
-      </Nav>
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink tag="span">
+              <Link to="/about-us" style={{ color: "white" }}>
+                About Us
+              </Link>
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink tag="span">
+              <Link to="/get-involved" style={{ color: "white" }}>
+                Get Involved
+              </Link>
+            </NavLink>
+          </NavItem>
+        </Nav>
+      </Collapse>
     </Navbar>
   )
 }

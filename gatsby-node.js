@@ -144,19 +144,25 @@ async function createProgramPage(graphql, actions, reporter) {
 
 async function createAboutUsPage(graphql, actions, reporter) {
   const { createPage } = actions
-  const teamMemberResults = await sanityClient.fetch(`
-  *[_type == 'teamMember'] {
-    ...,
-    "photoUrl": image.asset->url
+  const results = await sanityClient.fetch(`
+  {
+    "teamMembers" :*[_type == 'teamMember'] {
+      ...,
+      "photoUrl": image.asset->url,
+    },
+     "ourStory": *[_id == '123']{ ourStory }[0].ourStory
   }`)
 
-  if (teamMemberResults.error) throw teamMemberResults.error
+  if (results.error) throw results.error
   reporter.info("Creating about us page")
 
   createPage({
     path: "/about-us",
     component: require.resolve("./src/pages/AboutUs/AboutUs"),
-    context: { teamMemberData: teamMemberResults },
+    context: {
+      teamMemberData: results.teamMembers,
+      ourStory: results.ourStory,
+    },
   })
 }
 

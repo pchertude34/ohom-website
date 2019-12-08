@@ -1,5 +1,7 @@
 import React from "react"
 import { Button } from "reactstrap"
+import { Link } from "gatsby"
+import BlockContent from "@sanity/block-content-to-react"
 import PhotoCarousel from "../../components/Carousel/PhotoCarousel"
 import YouTube from "react-youtube"
 import moment from "moment"
@@ -19,7 +21,7 @@ function HomePage(props) {
     .slice(0, MAX_FEATURE_PROGRAM_SIZE)
     .map(program => (
       <div
-        className="col-md-4 d-flex align-items-stretch"
+        className="col-md-6 col-lg-4 d-flex align-items-stretch mb-3"
         key={`program-${program._id}`}
       >
         <ProgramCard
@@ -73,13 +75,18 @@ function HomePage(props) {
         <YouTube videoId={YOUTUBE_ID} className="youtube-player" />
       </div>
       <div className="row mb-3">
-        <div className="col-md-8 offset-md-2">
+        <div className="col-lg-10 offset-lg-1 col-md-12">
           <div className="px-2">
-            {homePageData.whoAreWe}
+            <BlockContent blocks={homePageData.whoAreWe} />
             <div className="text-center mt-4">
-              <Button color="secondary font-italic text-white" className="px-5">
-                Learn More!
-              </Button>
+              <Link to="about-us">
+                <Button
+                  color="secondary font-italic text-white"
+                  className="px-5"
+                >
+                  Learn More!
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

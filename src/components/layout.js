@@ -41,9 +41,26 @@ const Layout = ({ children }) => (
             }
           }
         }
+        allSanityConfig {
+          edges {
+            node {
+              footerText {
+                children {
+                  _key
+                  _type
+                  text
+                }
+                _key
+                _type
+                style
+              }
+            }
+          }
+        }
       }
     `}
     render={data => {
+      const footerText = data.allSanityConfig.edges[0].node.footerText
       const programs = data.allSanityProgram.edges.map(edge => edge.node)
       const sponsors = data.allSanitySponsor.edges.map(edge => {
         const imageUrl = edge.node.image ? edge.node.image.asset.url : null
@@ -54,11 +71,17 @@ const Layout = ({ children }) => (
         }
       })
 
+      console.log("footerText", footerText)
+
       return (
         <React.Fragment>
           <Navbar programs={programs} />
           <div className="container">{children}</div>
-          <Footer sponsorList={sponsors} className="footer mt-5 pb-3" />
+          <Footer
+            sponsorList={sponsors}
+            footerText={footerText}
+            className="footer mt-5 pb-3"
+          />
         </React.Fragment>
       )
     }}
