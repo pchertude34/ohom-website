@@ -14,7 +14,7 @@ import {
 } from "reactstrap"
 import { Link } from "gatsby"
 
-const navBar = props => {
+const NavBar = props => {
   const [isOpen, setIsOpen] = useState(false)
   const programItems = (props.programs || []).map(program => {
     return (
@@ -79,4 +79,4 @@ const navBar = props => {
   )
 }
 
-export default navBar
+export default NavBar

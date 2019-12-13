@@ -17,6 +17,9 @@ const Layout = ({ children }) => (
   <StaticQuery
     query={graphql`
       query {
+        sanityConfig(_id: { eq: "123" }) {
+          _rawFooterText
+        }
         allSanitySponsor {
           edges {
             node {
@@ -43,26 +46,11 @@ const Layout = ({ children }) => (
             }
           }
         }
-        allSanityConfig {
-          edges {
-            node {
-              footerText {
-                children {
-                  _key
-                  _type
-                  text
-                }
-                _key
-                _type
-                style
-              }
-            }
-          }
-        }
       }
     `}
     render={data => {
-      const footerText = data.allSanityConfig.edges[0].node.footerText
+      console.log("data", data)
+      const footerText = data.sanityConfig._rawFooterText
       const programs = data.allSanityProgram.edges.map(edge => edge.node)
       const sponsors = data.allSanitySponsor.edges.map(edge => {
         const imageUrl = edge.node.image ? edge.node.image.asset.url : null

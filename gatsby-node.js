@@ -97,8 +97,9 @@ async function createEventsPage(graphql, actions, reporter) {
   const events = []
   const results = await sanityClient.fetch(`*[_type == 'event']{
     ...,
-      programs[]->{_id, caption, location, title, slug, 'imageUrl': programImage.asset->url},
-    'imageUrl': image.asset->url
+    programs[]->{_id, caption, location, title, slug, 'imageUrl': programImage.asset->url},
+    'imageUrl': image.asset->url,
+    photoAlbum[]{_key, 'src': asset->url, 'dimensions': asset->metadata.dimensions}
   }`)
 
   if (results.error) throw results.error

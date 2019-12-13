@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Modal, ModalBody } from "reactstrap"
 import "./VolunteerCard.scss"
 
-const volunteerCard = props => {
+const VolunteerCard = props => {
   const [isModalOpen, toggleModal] = useState(false)
 
   const photoUrl = props.photoUrl || ""
@@ -58,4 +58,4 @@ const volunteerCard = props => {
   )
 }
 
-export default volunteerCard
+export default VolunteerCard
