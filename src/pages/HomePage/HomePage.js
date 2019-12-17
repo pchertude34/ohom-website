@@ -35,15 +35,15 @@ function HomePage(props) {
       </div>
     ))
 
-  const featuredTestimonies = (homePageData.featuredTestimonies || []).map(
-    testimony => (
-      <Testimonial
-        key={testimony._id}
-        quote={testimony.testimony}
-        author={testimony.authorName}
-      />
-    )
-  )
+  const featuredTestimonies = (
+    homePageData.featuredTestimonies || []
+  ).map(testimony => (
+    <Testimonial
+      key={testimony._id}
+      quote={testimony.testimony}
+      author={testimony.authorName}
+    />
+  ))
   const upcomingEvents = (homePageData.upcomingEvents || []).reduce(
     (accum, event) => {
       event.eventTimes.forEach(eventTime => {

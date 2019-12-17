@@ -61,7 +61,7 @@ class PhotoCarousel extends React.Component {
           <img
             src={item.url}
             alt={item.title}
-            style={{ height: 500, width: "100%", overflow: "hidden" }}
+            style={{ height: "auto", width: "100%", overflow: "hidden" }}
           />
           <CarouselCaption
             captionText={item.title || ""}

@@ -3,8 +3,6 @@ import PropTypes from "prop-types"
 import { navigate } from "gatsby"
 import moment from "moment"
 
-import "./UpcomingEventCard.scss"
-
 function UpcomingEventCard(props) {
   const eventDay = moment(props.startDate).format("DD")
   const eventMonth = moment(props.startDate)

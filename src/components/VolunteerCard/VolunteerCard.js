@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { Modal, ModalBody } from "reactstrap"
-import "./VolunteerCard.scss"
 
 const VolunteerCard = props => {
   const [isModalOpen, toggleModal] = useState(false)

@@ -1,10 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import BlockContent from "@sanity/block-content-to-react"
-import "./Footer.scss"
 
 function Footer(props) {
-  console.log("footer props", props)
   const sponsors = props.sponsorList.map(sponsor => {
     let sponsorImage = sponsor.imageUrl ? (
       <img className="sponsor" src={sponsor.imageUrl} alt={sponsor.name} />
