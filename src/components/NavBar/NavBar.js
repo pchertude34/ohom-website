@@ -18,11 +18,12 @@ const NavBar = props => {
   const [isOpen, setIsOpen] = useState(false)
   const programItems = (props.programs || []).map(program => {
     return (
-      <DropdownItem key={`drop-down-item-${program.slug.current}`}>
-        <Link to={`/programs/${(program.slug || {}).current}`}>
-          {program.title}
-        </Link>
-      </DropdownItem>
+      <Link
+        to={`/programs/${(program.slug || {}).current}`}
+        key={`drop-down-item-${program.slug.current}`}
+      >
+        <DropdownItem>{program.title}</DropdownItem>
+      </Link>
     )
   })
 
@@ -30,11 +31,9 @@ const NavBar = props => {
 
   return (
     <Navbar color="primary" dark expand="md">
-      <NavbarBrand tag="span">
-        <Link to="/" style={{ color: "white" }}>
-          Open Hearts Open Minds
-        </Link>
-      </NavbarBrand>
+      <Link to="/" style={{ color: "white" }}>
+        <NavbarBrand tag="span">Open Hearts Open Minds</NavbarBrand>
+      </Link>
       <NavbarToggler onClick={handleNavbarToggle} />
       <Collapse navbar isOpen={isOpen}>
         <Nav className="ml-auto" navbar>
@@ -43,11 +42,9 @@ const NavBar = props => {
               Our Programs
             </DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem>
-                <Link to="/programs/" style={{ color: "black" }}>
-                  All Programs
-                </Link>
-              </DropdownItem>
+              <Link to="/programs/">
+                <DropdownItem>All Programs</DropdownItem>
+              </Link>
               <DropdownItem divider />
               {programItems}
             </DropdownMenu>
