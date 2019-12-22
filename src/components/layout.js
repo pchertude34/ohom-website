@@ -1,9 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
-
 import Navbar from "./NavBar/NavBar"
 import Footer from "./Footer/Footer"
+import "../sass/main.scss"
 
 const Layout = ({ children }) => (
   <StaticQuery

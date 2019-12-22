@@ -11,6 +11,8 @@ import ProgramCard from "../../components/ProgramCard/ProgramCard"
 import Separator from "../../components/Separator/Separator"
 import Testimonial from "../../components/Testimonial/Testimonial"
 
+import "../../sass/main.scss"
+
 const MAX_FEATURE_PROGRAM_SIZE = 3
 const YOUTUBE_ID = "N0TMVSvMiVE"
 
@@ -68,7 +70,7 @@ function HomePage(props) {
   )
 
   return (
-    <div className="container">
+    <div>
       <PhotoCarousel items={homePageData.carouselImages} />
       <Separator text={"Who are we?"} className={"mb-5"} />
       <div className="mb-3 text-center">

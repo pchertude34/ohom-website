@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import {
   Carousel,
@@ -8,100 +8,93 @@ import {
   CarouselControl,
 } from "reactstrap"
 
-class PhotoCarousel extends React.Component {
-  state = {
-    activeIndex: 0,
+const PhotoCarousel = props => {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [animating, setAnimating] = useState(false)
+
+  const onExiting = () => {
+    setAnimating(true)
   }
 
-  onExiting = () => {
-    this.animating = true
+  const onExited = () => {
+    setAnimating(false)
   }
 
-  onExited = () => {
-    this.animating = false
-  }
-
-  next = () => {
-    if (this.animating) {
+  const next = () => {
+    if (animating) {
       return
     }
     const nextIndex =
-      this.state.activeIndex >= this.props.items.length - 1
-        ? 0
-        : this.state.activeIndex + 1
-    this.setState({ activeIndex: nextIndex })
+      activeIndex >= props.items.length - 1 ? 0 : activeIndex + 1
+    setActiveIndex(nextIndex)
   }
 
-  previous = () => {
-    if (this.animating) return
+  const previous = () => {
+    if (animating) return
     const prevIndex =
-      this.state.activeIndex <= 0
-        ? this.props.items.length - 1
-        : this.state.activeIndex - 1
+      activeIndex <= 0
+        ? props.items.length - 1
+        : setActiveIndex(activeIndex - 1)
 
-    this.setState({ activeIndex: prevIndex })
+    setActiveIndex(prevIndex)
   }
 
-  goToIndex = newIndex => {
-    if (this.animating) return
-    this.setState({ activeIndex: newIndex })
+  const goToIndex = newIndex => {
+    if (animating) return
+    setActiveIndex(newIndex)
   }
 
-  render() {
-    const { activeIndex } = this.state
-
-    const slides = (this.props.items || []).map((item, index) => {
-      return (
-        <CarouselItem
-          data-test="photo-slide"
-          onExiting={this.onExiting}
-          onExited={this.onExited}
-          key={`${item._key}-${index}`}
-        >
-          <img
-            src={item.url}
-            alt={item.title}
-            style={{ height: "auto", width: "100%", overflow: "hidden" }}
-          />
-          <CarouselCaption
-            captionText={item.title || ""}
-            captionHeader={item.description}
-          />
-        </CarouselItem>
-      )
-    })
-
+  const slides = (props.items || []).map((item, index) => {
     return (
-      <Carousel
-        data-test="component-carousel"
-        activeIndex={activeIndex}
-        next={this.next}
-        previous={this.previous}
+      <CarouselItem
+        data-test="photo-slide"
+        onExiting={onExiting}
+        onExited={onExited}
+        key={`${item._key}-${index}`}
       >
-        <CarouselIndicators
-          items={this.props.items || []}
-          activeIndex={activeIndex}
-          onClickHandler={this.goToIndex}
+        <img
+          src={item.url}
+          alt={item.title}
+          style={{ height: "auto", width: "100%", overflow: "hidden" }}
         />
-        {slides}
-        <CarouselControl
-          id="carousel-prev-button"
-          direction="prev"
-          directionText="Previous"
-          onClickHandler={this.previous}
-          key={"carousel-prev-button"}
+        <CarouselCaption
+          captionText={item.title || ""}
+          captionHeader={item.description}
         />
-        <CarouselControl
-          id="carousel-next-button"
-          data-test="carousel-next-button"
-          direction="next"
-          directionText="Next"
-          onClickHandler={this.next}
-          key={"carousel-next-button"}
-        />
-      </Carousel>
+      </CarouselItem>
     )
-  }
+  })
+
+  return (
+    <Carousel
+      data-test="component-carousel"
+      activeIndex={activeIndex}
+      next={next}
+      previous={previous}
+    >
+      <CarouselIndicators
+        items={props.items || []}
+        activeIndex={activeIndex}
+        onClickHandler={goToIndex}
+      />
+      {slides}
+      <CarouselControl
+        id="carousel-prev-button"
+        direction="prev"
+        directionText="Previous"
+        onClickHandler={previous}
+        key={"carousel-prev-button"}
+      />
+      <CarouselControl
+        id="carousel-next-button"
+        data-test="carousel-next-button"
+        direction="next"
+        directionText="Next"
+        onClickHandler={next}
+        key={"carousel-next-button"}
+      />
+    </Carousel>
+  )
 }
 
 PhotoCarousel.propTypes = {
