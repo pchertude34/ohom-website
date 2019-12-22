@@ -27,14 +27,9 @@ function Program(props) {
       <Separator text={program.title} className="mb-2" />
       <div>
         <div className="mb-5 row">
-          <div className="col-md-8">
+          <div className="col-lg-8 offset-lg-2">
             <h4 className="mb-3 text-center">{program.title}</h4>
             {program.body && <BlockContent blocks={program.body} />}
-          </div>
-          <div className="col-md-4">
-            {program.photoUrl ? (
-              <img src={program.photoUrl} className="content-photo" />
-            ) : null}
           </div>
         </div>
         {programEventCards.length > 0 ? (
