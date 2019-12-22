@@ -1,9 +1,16 @@
 .image-box {
-  height: 45vh;
+  height: 500px;
   width: 100%;
   background-size: cover;
   background-position: center;
   overflow: hidden;
+
+  @include media-breakpoint-down(md) {
+    height: 400px;
+  }
+  @include media-breakpoint-down(sm) {
+    height: 300px;
+  }
 }
 
 .header-box {
