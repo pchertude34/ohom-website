@@ -11,7 +11,7 @@ const Programs = props => {
   const programCards = programs.map(program => {
     return (
       <div
-        className="col-md-4 d-flex align-items-stretch mb-4"
+        className="col-sm-6 col-lg-4 d-flex align-items-stretch mb-4"
         key={`program-${program._id}`}
       >
         <ProgramCard

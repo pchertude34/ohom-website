@@ -32,7 +32,7 @@ function UpcomingEventCard(props) {
         </div>
       </div>
       <div
-        className="col-md-3 upcoming-event-card-image"
+        className="col-sm-3 upcoming-event-card-image"
         style={{ backgroundImage: `url(${props.imageUrl})` }}
       />
     </div>

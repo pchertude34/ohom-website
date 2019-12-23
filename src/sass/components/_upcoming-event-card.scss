@@ -53,15 +53,16 @@
 }
 
 .upcoming-event-card-image {
-  @media screen and (max-width: $break-small) {
-    display: none;
+  display: none;
+  @media screen and (min-width: $break-small) {
+    display: block;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: grey;
+    position: relative;
+    overflow: hidden;
   }
-  text-align: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: grey;
-  position: relative;
-  overflow: hidden;
 }
 
 // .upcoming-event-card-image img {
