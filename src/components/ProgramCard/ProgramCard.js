@@ -15,7 +15,7 @@ const ProgramCard = props => {
   return (
     <Card>
       <CardImg top width="100%" src={props.imageUrl} alt="Card image cap" />
-      <CardBody style={{ paddingTop: "0px" }}>
+      <CardBody style={{ paddingTop: "0px" }} className="d-flex flex-column">
         <CardTitle>
           <h4>{props.title}</h4>
         </CardTitle>
@@ -24,7 +24,7 @@ const ProgramCard = props => {
         )}
         <CardText className="text-left">{props.caption}</CardText>
         {props.link && (
-          <Link to={props.link}>
+          <Link to={props.link} className="mt-auto">
             <Button className="bg-white text-secondary px-5 flex-d align-items-bottom">
               <i>Read More!</i>
             </Button>
